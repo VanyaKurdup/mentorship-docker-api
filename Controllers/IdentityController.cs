@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace mentorship_docker_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("")]
     [ApiController]
     public class IdentityController : ControllerBase
     {

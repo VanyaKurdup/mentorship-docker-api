@@ -4,9 +4,13 @@ namespace mentorship_docker_api.Services
 {
     public class GuidService : IGuidService
     {
+        private Guid Id { get; set; }
         public Guid Get()
         {
-            return Guid.NewGuid();
+            if (Id == Guid.Empty)
+                Id = Guid.NewGuid();
+
+            return Id;
         }
     }
 }
