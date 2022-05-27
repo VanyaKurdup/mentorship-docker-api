@@ -1,5 +1,6 @@
 using mentorship_docker_api.Services;
 using mentorship_docker_api.Services.Interfaces;
+using StackExchange.Redis;
 
 namespace mentorship_docker_api
 {
@@ -10,6 +11,13 @@ namespace mentorship_docker_api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            //builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+            ConnectionMultiplexer.Connect(new ConfigurationOptions
+            {
+                EndPoints = { "localhost:6379" },
+                AbortOnConnectFail = false}));
+
             builder.Services.AddSingleton<IGuidService, GuidService>();
 
             builder.Services.AddControllers();

@@ -18,6 +18,6 @@ namespace mentorship_docker_api.Controllers
         }
 
         [HttpGet]
-        public Guid Get() => _service.Get();
+        public async Task<Guid> Get() => await _service.GetAsync();
     }
 }
