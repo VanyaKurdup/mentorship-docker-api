@@ -1,5 +1,4 @@
 ﻿using mentorship_docker_api.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mentorship_docker_api.Controllers
@@ -18,6 +17,10 @@ namespace mentorship_docker_api.Controllers
         }
 
         [HttpGet]
-        public async Task<Guid> Get() => await _service.GetAsync();
+        public async Task<string> Get()
+        {
+            _logger.LogInformation($"Get request at {DateTime.Now}");
+            return await _service.GetMessageAsync();
+        }
     }
 }

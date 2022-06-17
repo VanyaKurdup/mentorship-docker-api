@@ -25,6 +25,8 @@ namespace mentorship_docker_api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Logging.AddFile(builder.Configuration.GetSection("Logging"));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -14,29 +14,32 @@ namespace mentorship_docker_api.Services
         }
         private Guid Id { get; set; }
 
-        public async Task<Guid> GetAsync()
+        public Guid Get()
         {
-            var cachedId = await _databaseAsync.StringGetAsync("Id");
-            if (cachedId.HasValue)
-            {
-                Id = Guid.Parse(cachedId.ToString());
-            }
             if (Id == Guid.Empty)
                 Id = Guid.NewGuid();
-            _ = _databaseAsync.StringSetAsync("Id", Id.ToString());
-
+            
             return Id;
         }
 
-        public async Task<Guid> GetCachedAsync()
+        private async Task<int> GetCachedAsync()
         {
-            var cachedId = await _databaseAsync.StringGetAsync("Id");
-            if (cachedId.HasValue)
+            int count = 1;
+            var redisCount = await _databaseAsync.StringGetAsync("Count");
+            if (redisCount.HasValue)
             {
-                return Guid.Parse(cachedId.ToString());
+                count = Int32.Parse(count.ToString()) + 1;
             }
 
-             return Guid.Empty;
+            _ = _databaseAsync.StringSetAsync("Count", count.ToString());
+            return count;
+        }
+
+        public async Task<string> GetMessageAsync()
+        {
+            int count = await GetCachedAsync();
+            string stringId = Get().ToString();
+            return "Hi, my name is " + stringId + ", and it`s your " + count.ToString() + " call to us";
         }
     }
 }

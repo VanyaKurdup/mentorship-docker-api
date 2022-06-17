@@ -2,6 +2,7 @@
 {
     public interface IGuidService
     {
-        public Task<Guid> GetAsync();
+        public Guid Get();
+        public Task<string> GetMessageAsync();
     }
 }

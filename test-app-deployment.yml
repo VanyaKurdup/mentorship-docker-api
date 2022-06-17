@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-app-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-app-api
+  template:
+    metadata:
+      labels:
+        app: test-app-api
+    spec:
+      containers:
+      - name: test-app-api
+        image: jkdc/test-app:demo1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: "/Logs"
+          name: test-app-api-logs-pv
+      volumes:
+      - name: test-app-api-logs-pv
+        persistentVolumeClaim:
+          claimName: logs-pvc

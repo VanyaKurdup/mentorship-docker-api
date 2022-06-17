@@ -5,8 +5,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - .:/code
-      - logvolume01:/var/log
+      - logvolume01:/Logs
     links:
       - redis
   redis:
