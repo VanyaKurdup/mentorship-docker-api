@@ -14,13 +14,18 @@ spec:
     spec:
       containers:
       - name: test-app-api
-        image: jkdc/test-app:demo1
+        image: lancethe4/mentorship-docker-api
         imagePullPolicy: Always
         ports:
         - containerPort: 80
         volumeMounts:
         - mountPath: "/Logs"
           name: test-app-api-logs-pv
+      - name: redis
+        image: redis:6.2.3-alpine
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 6379
       volumes:
       - name: test-app-api-logs-pv
         persistentVolumeClaim:

@@ -28,7 +28,7 @@ namespace mentorship_docker_api.Services
             var redisCount = await _databaseAsync.StringGetAsync("Count");
             if (redisCount.HasValue)
             {
-                count = Int32.Parse(count.ToString()) + 1;
+                count = Int32.Parse(redisCount.ToString()) + 1;
             }
 
             _ = _databaseAsync.StringSetAsync("Count", count.ToString());
