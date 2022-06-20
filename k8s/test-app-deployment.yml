@@ -21,11 +21,6 @@ spec:
         volumeMounts:
         - mountPath: "/Logs"
           name: test-app-api-logs-pv
-      - name: redis
-        image: redis:6.2.3-alpine
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 6379
       volumes:
       - name: test-app-api-logs-pv
         persistentVolumeClaim:
